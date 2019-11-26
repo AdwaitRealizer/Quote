@@ -20,6 +20,11 @@ class QuotesHomeViewController: UIViewController,UITableViewDelegate,UITableView
         self.getQuotesFromJSON()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+    
     // MARK: Get Quotes from the JOSN
     func getQuotesFromJSON() {
         let urlPath = "https://quote-garden.herokuapp.com/quotes/all"

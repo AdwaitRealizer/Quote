@@ -7,14 +7,20 @@
 //
 
 import UIKit
-
+import Firebase
 class BaseViewController: UIViewController {
 
     var slideOutMenuViewController : SlideOutMenuViewController?
     override func viewDidLoad() {
         super.viewDidLoad()
+      
         // Do any additional setup after loading the view.
     }
+    enum CheckCurrentViewForHandelLogin {
+        case setting
+        case Home
+    }
+    
     
     func setupNavBarForLeftMenuIcon(title: String)
     {
@@ -50,7 +56,24 @@ class BaseViewController: UIViewController {
         return drawerController
     }
 
-    
+    func presentAlert() {
+        
+        let alert = UIAlertController(title: "Login Error", message: "Please login", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            switch action.style{
+            case .default:
+                print("default")
+                
+            case .cancel:
+                print("cancel")
+                
+            case .destructive:
+                print("destructive")
+                
+                
+            }}))
+        self.present(alert, animated: true, completion: nil)
+    }
     
     
     

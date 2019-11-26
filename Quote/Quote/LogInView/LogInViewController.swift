@@ -10,28 +10,39 @@
 
 import UIKit
 import Firebase
-class LogInViewController: BaseViewController {
+class LogInViewController: BaseViewController,UITextFieldDelegate {
     
     // MARK: IBOutlets and veriables
-    
+    var viewY = CGFloat()
+    @IBOutlet var loginBaseView: UIView!
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var emailTextField: UITextField!
+    @IBOutlet var loginButton: UIButton!
+    @IBOutlet var loginbaseViewHeightConstant: NSLayoutConstraint!
+    @IBOutlet var loginHeightConstant: NSLayoutConstraint!
+    @IBOutlet var showPasswordButton: UIButton!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewY = self.loginBaseView.frame.origin.y
+        self.adjustViewAccodingToDevice()
+        self.changeLoginAndBaseViewUI()
         view.backgroundColor = UIColor.white
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
-        UINavigationBar.appearance().tintColor = UIColor.white
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        UINavigationBar.appearance().isTranslucent = false
-        UINavigationBar.appearance().barTintColor = UIColor.white //UIColor(red: 61/255.0, green: 85/255.0, blue: 145/255.0, alpha: 0.6)
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Avenir-Medium", size: 16)!]
         setupNavBarForLeftMenuIcon(title: "Login")
-        // Do any additional setup after loading the view.
     }
     
     
+    
+    // MARK: Set up login button And Base View UI
+    func changeLoginAndBaseViewUI() {
+        loginButton.layer.cornerRadius = loginButton.frame.height / 2
+        loginButton.layer.borderWidth = 0.5
+        loginButton.layer.borderColor = UIColor.black.cgColor
+        loginBaseView.layer.cornerRadius = 15
+        loginBaseView.layer.borderWidth = 0.5
+        loginBaseView.layer.borderColor = UIColor.black.cgColor
+    }
     
     
     
@@ -43,9 +54,7 @@ class LogInViewController: BaseViewController {
                 let quoteHomeViewController = self.storyboard?.instantiateViewController(withIdentifier: "QuotesHomeViewController") as? QuotesHomeViewController
                 quoteHomeViewController?.hasSuccesfullLoginOrSignUp = true
                 self.navigationController?.pushViewController(quoteHomeViewController!, animated: true)
-                
-            }
-            else{
+            } else {
                 let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
                 let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                 alertController.addAction(defaultAction)
@@ -53,4 +62,35 @@ class LogInViewController: BaseViewController {
             }
         }
     }
+   
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    // MARK: AdjustViewAccording to Device
+    func adjustViewAccodingToDevice() {
+        if UIDevice.iPhoneX {
+           loginbaseViewHeightConstant.constant = 320
+            loginHeightConstant.constant = 260
+        } else {
+            loginbaseViewHeightConstant.constant = 180
+            loginHeightConstant.constant = 230
+        }
+        
+    }
+    
+    // MARK: ShowPassword action
+    var iconClick = false
+    @IBAction func showPasswordAction(_ sender: Any) {
+        if(iconClick == true) {
+            passwordTextField.isSecureTextEntry = false
+        } else {
+            passwordTextField.isSecureTextEntry = true
+        }
+        iconClick = !iconClick
+    }
+    
+    // MARK: Adjust View when keyboard is opened
+
 }

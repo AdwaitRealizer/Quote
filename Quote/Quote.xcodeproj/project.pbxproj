@@ -29,6 +29,8 @@
 		A034780F237BFF410040CB22 /* Json4Swift_Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = A034780D237BFF410040CB22 /* Json4Swift_Base.swift */; };
 		A0347811237C0C6C0040CB22 /* QouteHomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0347810237C0C6C0040CB22 /* QouteHomeTableViewCell.swift */; };
 		A0347814237C1CC40040CB22 /* QuoteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0347813237C1CC40040CB22 /* QuoteDetailViewController.swift */; };
+		A05475FB2387F8600034F728 /* DetectDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05475FA2387F8600034F728 /* DetectDevice.swift */; };
+		A05475FD2387FA110034F728 /* Adjustkeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05475FC2387FA110034F728 /* Adjustkeyboard.swift */; };
 		F02512BC8DD8190649CB9A99 /* Pods_QuoteTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B43EEC9DEFE9BAC7B42B0DDA /* Pods_QuoteTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +82,8 @@
 		A034780D237BFF410040CB22 /* Json4Swift_Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Json4Swift_Base.swift; sourceTree = "<group>"; };
 		A0347810237C0C6C0040CB22 /* QouteHomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QouteHomeTableViewCell.swift; sourceTree = "<group>"; };
 		A0347813237C1CC40040CB22 /* QuoteDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteDetailViewController.swift; sourceTree = "<group>"; };
+		A05475FA2387F8600034F728 /* DetectDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectDevice.swift; sourceTree = "<group>"; };
+		A05475FC2387FA110034F728 /* Adjustkeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Adjustkeyboard.swift; sourceTree = "<group>"; };
 		B211D72A35F321B155871F27 /* Pods_QuoteUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuoteUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2F52291DBD2B300D2CA137D /* Pods-QuoteTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuoteTests.debug.xcconfig"; path = "Target Support Files/Pods-QuoteTests/Pods-QuoteTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B43EEC9DEFE9BAC7B42B0DDA /* Pods_QuoteTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuoteTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -205,6 +209,7 @@
 		A03477D9237BE7580040CB22 /* Quote */ = {
 			isa = PBXGroup;
 			children = (
+				A05475F92387F81C0034F728 /* New Group */,
 				A02D0EAE237D64B700ACFA75 /* SettingsView */,
 				A02D0EA7237D57D800ACFA75 /* DrawerViewControllerClass */,
 				A02D0EA3237D27F400ACFA75 /* SignUpView */,
@@ -258,6 +263,15 @@
 				A0347810237C0C6C0040CB22 /* QouteHomeTableViewCell.swift */,
 			);
 			path = QuoteDetailView;
+			sourceTree = "<group>";
+		};
+		A05475F92387F81C0034F728 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				A05475FA2387F8600034F728 /* DetectDevice.swift */,
+				A05475FC2387FA110034F728 /* Adjustkeyboard.swift */,
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -482,6 +496,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A05475FB2387F8600034F728 /* DetectDevice.swift in Sources */,
 				A02D0EAB237D60AB00ACFA75 /* SlideOutMenuViewController.swift in Sources */,
 				A0347814237C1CC40040CB22 /* QuoteDetailViewController.swift in Sources */,
 				A03477DD237BE7580040CB22 /* QuotesHomeViewController.swift in Sources */,
@@ -492,6 +507,7 @@
 				A034780F237BFF410040CB22 /* Json4Swift_Base.swift in Sources */,
 				A02D0EAD237D625300ACFA75 /* SideMenuCell.swift in Sources */,
 				A02D0EB0237D64D400ACFA75 /* SettingsViewController.swift in Sources */,
+				A05475FD2387FA110034F728 /* Adjustkeyboard.swift in Sources */,
 				A02D0EA9237D57D800ACFA75 /* KYDrawerController.swift in Sources */,
 				A02D0E9F237D27D900ACFA75 /* BaseViewController.swift in Sources */,
 				A03477E3237BE7590040CB22 /* Quote.xcdatamodeld in Sources */,
