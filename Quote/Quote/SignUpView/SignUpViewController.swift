@@ -9,18 +9,31 @@
 import UIKit
 import Firebase
 
-class SignUpViewController: BaseViewController {
-
+class SignUpViewController: BaseViewController,UITextFieldDelegate {
+    // MARK: IBOutlets and Variables
+    @IBOutlet var baseScrollView: UIScrollView!
+    @IBOutlet var signUpBaseView: DesignableView!
     @IBOutlet var confirmPassswordTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var emailTextField: UITextField!
+    @IBOutlet var signUpViewHeightConstant: NSLayoutConstraint!
+    @IBOutlet var signUpViewBottomConstant: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
-    setupNavBarForLeftMenuIcon(title: "Sign up")
+        self.baseScrollView.scrollsToTop = true
+        self.adjustViewAccordingToUIDevice()
+        setupNavBarForLeftMenuIcon(title: "Sign up")
         // Do any additional setup after loading the view.
     }
     
-
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        DispatchQueue.main.asyncAfter(deadline: (.now() + .milliseconds(500))) {
+            self.baseScrollView.flashScrollIndicators()
+        }
+        
+    }
+    
     @IBAction func signUpButtonCliked(_ sender: Any) {
         if passwordTextField.text != confirmPassswordTextField.text {
             let alertController = UIAlertController(title: "Password Incorrect", message: "Please re-type password", preferredStyle: .alert)
@@ -45,14 +58,23 @@ class SignUpViewController: BaseViewController {
             }
         }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    
+    func adjustViewAccordingToUIDevice() {
+        if UIDevice.iPhoneX {
+            signUpViewBottomConstant.constant = 315
+            signUpViewHeightConstant.constant = 315
+        } else {
+            signUpViewBottomConstant.constant = 215
+            signUpViewHeightConstant.constant = 215
+        }
     }
-    */
-
+    
+    //MARK: UITextField Delegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
 }

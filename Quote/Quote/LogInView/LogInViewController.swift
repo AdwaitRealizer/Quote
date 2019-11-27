@@ -18,9 +18,9 @@ class LogInViewController: BaseViewController,UITextFieldDelegate {
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var emailTextField: UITextField!
     @IBOutlet var loginButton: UIButton!
-    @IBOutlet var loginbaseViewHeightConstant: NSLayoutConstraint!
     @IBOutlet var loginHeightConstant: NSLayoutConstraint!
     @IBOutlet var showPasswordButton: UIButton!
+    @IBOutlet var loginViewBottomConstant: NSLayoutConstraint!
     
     
     override func viewDidLoad() {
@@ -28,6 +28,11 @@ class LogInViewController: BaseViewController,UITextFieldDelegate {
         viewY = self.loginBaseView.frame.origin.y
         self.adjustViewAccodingToDevice()
         self.changeLoginAndBaseViewUI()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
+        let swipeDown = UISwipeGestureRecognizer(target: self.view , action : #selector(UIView.endEditing(_:)))
+        swipeDown.direction = .down
+        self.view.addGestureRecognizer(swipeDown)
         view.backgroundColor = UIColor.white
         setupNavBarForLeftMenuIcon(title: "Login")
     }
@@ -62,7 +67,6 @@ class LogInViewController: BaseViewController,UITextFieldDelegate {
             }
         }
     }
-   
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -71,13 +75,12 @@ class LogInViewController: BaseViewController,UITextFieldDelegate {
     // MARK: AdjustViewAccording to Device
     func adjustViewAccodingToDevice() {
         if UIDevice.iPhoneX {
-           loginbaseViewHeightConstant.constant = 320
+            loginViewBottomConstant.constant = 195
             loginHeightConstant.constant = 260
         } else {
-            loginbaseViewHeightConstant.constant = 180
+            loginViewBottomConstant.constant = 125
             loginHeightConstant.constant = 230
         }
-        
     }
     
     // MARK: ShowPassword action
@@ -90,7 +93,31 @@ class LogInViewController: BaseViewController,UITextFieldDelegate {
         }
         iconClick = !iconClick
     }
-    
     // MARK: Adjust View when keyboard is opened
-
+    @objc func keyboardNotification(notification: NSNotification) {
+        
+        if let userInfo = notification.userInfo {
+            if let endFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue{
+                if let duration:TimeInterval = (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue{
+                    let animationCurveRawNSN = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber
+                    let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIView.AnimationOptions.curveEaseInOut.rawValue
+                    let animationCurve:UIView.AnimationOptions = UIView.AnimationOptions(rawValue: animationCurveRaw)
+                    
+                    if (endFrame.origin.y) >= UIScreen.main.bounds.size.height {
+                        
+                        self.adjustViewAccodingToDevice()
+                    } else {
+                        self.loginViewBottomConstant?.constant = endFrame.size.height
+                    }
+                    
+                    UIView.animate(withDuration: duration,
+                                   delay: TimeInterval(0),
+                                   options: animationCurve,
+                                   animations: { self.view.layoutIfNeeded() },
+                                   completion: nil)
+                }
+            }
+        }
+    }
+    
 }

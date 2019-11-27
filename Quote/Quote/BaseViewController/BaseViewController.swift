@@ -9,11 +9,11 @@
 import UIKit
 import Firebase
 class BaseViewController: UIViewController {
-
+    
     var slideOutMenuViewController : SlideOutMenuViewController?
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+        
         // Do any additional setup after loading the view.
     }
     enum CheckCurrentViewForHandelLogin {
@@ -46,7 +46,7 @@ class BaseViewController: UIViewController {
         let appDel = UIApplication.shared.delegate as! AppDelegate
         appDel.drawerStatus(isOpen: true,animated: true)
     }
-
+    
     func getDrawerViewControler() -> KYDrawerController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         slideOutMenuViewController = storyboard.instantiateViewController(withIdentifier: "SlideOutMenuViewController") as? SlideOutMenuViewController
@@ -55,7 +55,7 @@ class BaseViewController: UIViewController {
         drawerController.drawerViewController = slideOutMenuViewController
         return drawerController
     }
-
+    
     func presentAlert() {
         
         let alert = UIAlertController(title: "Login Error", message: "Please login", preferredStyle: .alert)
@@ -80,13 +80,56 @@ class BaseViewController: UIViewController {
     
     
     /*
-    // MARK: - Navigation
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
+}
+@IBDesignable
+class DesignableView: UIView {
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension UIView {
+    
+    @IBInspectable
+    var cornerRadius: CGFloat {
+        get {
+            return layer.cornerRadius
+        }
+        set {
+            layer.cornerRadius = newValue
+        }
     }
-    */
+}
 
+@IBDesignable
+class DesignButtonRoundCorner: UIButton{
+}
+
+extension UIButton {
+    @IBInspectable
+    var roundCorner: CGFloat {
+        get {
+            return layer.borderWidth
+        }
+        set {
+            layer.borderWidth = newValue
+        }
+      
+        
+}
+    @IBInspectable
+    var borderColor: CGColor {
+        get {
+            return layer.borderColor ?? UIColor.white as! CGColor
+        }
+        set {
+            layer.borderColor = newValue
+        }
+    }
 }
