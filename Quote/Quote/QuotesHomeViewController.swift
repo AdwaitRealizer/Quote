@@ -20,6 +20,11 @@ class QuotesHomeViewController: UIViewController,UITableViewDelegate,UITableView
         self.getQuotesFromJSON()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+    
     // MARK: Get Quotes from the JOSN
     func getQuotesFromJSON() {
         let urlPath = "https://quote-garden.herokuapp.com/quotes/all"
@@ -75,6 +80,8 @@ class QuotesHomeViewController: UIViewController,UITableViewDelegate,UITableView
         
         self.navigationController?.pushViewController(quoteDetailViewController, animated: true)
     }
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
+    }
 }
 

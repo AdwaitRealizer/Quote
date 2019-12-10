@@ -14,6 +14,7 @@ class QouteHomeTableViewCell: UITableViewCell {
     @IBOutlet var lblAuthorName: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
+        backgroundColor = UIColor.clear
         // Initialization code
     }
 

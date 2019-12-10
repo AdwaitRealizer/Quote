@@ -7,27 +7,36 @@
 //
 
 import UIKit
-
+import Firebase
 class SettingsViewController: BaseViewController {
-
+    var appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var drawerController: KYDrawerController?
     override func viewDidLoad() {
         super.viewDidLoad()
+        drawerController = appDelegate.drawerController
       setupNavBarForLeftMenuIcon(title: "Settings")
-        // Do any additional setup after loading the view.
     }
     
+    lazy var logInNavController: UINavigationController = {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let settingsVC = storyboard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
+        return UINavigationController(rootViewController: settingsVC)
+    }()
+    
+    // MARK: HAndel Logout Here
     @IBAction func logoutButtonClicked(_ sender: Any) {
-   
+        if Auth.auth().currentUser != nil {
+            do {
+                try Auth.auth().signOut()
+            }
+            catch let signOutError as NSError {
+                print ("Error signing out: %@", signOutError)
+            }
+            drawerController?.mainViewController = logInNavController
+            drawerController?.drawerState = .opened
+        } else {
+            self.presentAlert()
+        }
+        
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
